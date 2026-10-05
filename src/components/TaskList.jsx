@@ -1,5 +1,5 @@
 import Task from './Task';
-function TaskList({ tasks }) {
+function TaskList({ tasks, onToggleTask }) {
   return (
     <ul className="todo-list">
       {tasks.map((task) => (
@@ -8,6 +8,7 @@ function TaskList({ tasks }) {
           description={task.description}
           created={task.created}
           completed={task.completed}
+          onToggle={() => onToggleTask(task.id)}
         />
       ))}
     </ul>

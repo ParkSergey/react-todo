@@ -3,6 +3,7 @@ function Task({
   description = 'Task',
   created = new Date(),
   completed = false,
+  onToggle,
 }) {
   return (
     <li className={completed ? 'completed' : ''}>
@@ -11,7 +12,7 @@ function Task({
           className="toggle"
           type="checkbox"
           checked={completed}
-          readOnly
+          onChange={onToggle}
         />
         <label>
           <span className="description">{description}</span>
@@ -20,7 +21,7 @@ function Task({
         <button className="icon icon-edit" aria-label="Edit task"></button>
         <button className="icon icon-destroy" aria-label="Delete task"></button>
       </div>
-      <input type="text" className="edit"/>
+      <input type="text" className="edit" />
     </li>
   );
 }

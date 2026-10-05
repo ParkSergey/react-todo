@@ -4,7 +4,12 @@ function NewTaskForm({ onAddTask }) {
       className="new-todo"
       placeholder="What needs to be done?"
       autoFocus
-      onChange={(event) => onAddTask(event.target.value)}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') {
+          onAddTask(event.target.value);
+          event.target.value = '';
+        }
+      }}
     />
   );
 }
