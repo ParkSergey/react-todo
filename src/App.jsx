@@ -26,23 +26,49 @@ function App() {
     },
   ]);
 
-  function addTask(task) {
-    setTasks([...tasks, task]);
+  function addTask(description) {
+    setTasks((currentTasks) => [
+      ...currentTasks,
+      {
+        id: crypto.randomUUID(),
+        description,
+        created: new Date(),
+        completed: false,
+      },
+    ]);
   }
 
   function toggleTask(id) {
-    const newTasks = tasks.map((task) => {
-      if (task.id === id) {
-        return {
-          ...task,
-          completed: !task.completed,
-        };
-      }
+    setTasks((currentTasks) =>
+      currentTasks.map((task) => {
+        if (task.id === id) {
+          return {
+            ...task,
+            completed: !task.completed,
+          };
+        }
 
-      return task;
-    });
+        return task;
+      }),
+    );
+  }
+  function deleteTask(id) {
+    setTasks((currentTasks) => currentTasks.filter((task) => task.id !== id));
+  }
 
-    setTasks(newTasks);
+  function editTask(id, newDescription) {
+    setTasks((currentTasks) =>
+      currentTasks.map((task) => {
+        if (task.id === id) {
+          return {
+            ...task,
+            description: newDescription,
+          };
+        }
+
+        return task;
+      }),
+    );
   }
 
   return (
@@ -53,7 +79,12 @@ function App() {
       </header>
 
       <section className="main">
-        <TaskList tasks={tasks} onToggleTask={toggleTask} />
+        <TaskList
+          tasks={tasks}
+          onToggleTask={toggleTask}
+          onDeleteTask={deleteTask}
+          onEditTask={editTask}
+        />
         <Footer />
       </section>
     </section>
