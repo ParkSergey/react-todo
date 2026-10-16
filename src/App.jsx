@@ -1,31 +1,45 @@
 import './App.css';
 import TaskList from './components/TaskList';
-import NewTaskForm from './components/NewTaskForm';
 import Footer from './components/Footer';
 import { useState } from 'react';
+import TaskArray from './components/TaskArray';
 
 function App() {
+  const [filter, setFilter] = useState('all');
   const [tasks, setTasks] = useState([
+    ...TaskArray.map((task) => ({
+      ...task,
+      completed: false,
+    })),
     {
-      id: 1,
+      id: custom -
+        1,
       description: 'Completed task',
       created: new Date(),
-      completed: true,
+      completed: false,
     },
     {
-      id: 2,
+      id:custom-2,
       description: 'Editing task',
       created: new Date(),
       completed: false,
     },
     {
-      id: 3,
+      id:custom-3,
       description: 'Active task',
       created: new Date(),
       completed: false,
     },
   ]);
-
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === 'active') {
+      return !task.completed;
+    }
+    if (filter === 'completed') {
+      return task.completed;
+    }
+    return true;
+  });
   function addTask(description) {
     setTasks((currentTasks) => [
       ...currentTasks,
@@ -75,17 +89,32 @@ function App() {
     <section className="todoapp">
       <header className="header">
         <h1>todos</h1>
-        <NewTaskForm onAddTask={addTask} />
+        <input
+          className="new-todo"
+          placeholder="What needs to be done?"
+          autoFocus
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              addTask(event.target.value);
+              event.target.value = '';
+            }
+          }}
+        />
       </header>
 
       <section className="main">
         <TaskList
-          tasks={tasks}
+          tasks={filteredTasks}
           onToggleTask={toggleTask}
           onDeleteTask={deleteTask}
           onEditTask={editTask}
         />
-        <Footer />
+       
+
+        
+        <Footer tasks={tasks}
+          filter={filter}
+        setFilter={setFilter}/>
       </section>
     </section>
   );
