@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { useEffect, useRef, useState } from 'react';
 
 function Task({
-  description = 'Task',
+  title = 'Task',
   created = new Date(),
   completed = false,
   onToggle,
@@ -10,7 +10,7 @@ function Task({
   onEdit,
 }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [draft, setDraft] = useState(description);
+  const [draft, setDraft] = useState(title);
   const editInputRef = useRef(null);
 
   useEffect(() => {
@@ -20,20 +20,20 @@ function Task({
   }, [isEditing]);
 
   function startEditing() {
-    setDraft(description);
+    setDraft(title);
     setIsEditing(true);
   }
 
   function saveEdit() {
-    const newDescription = draft.trim();
-    if (newDescription) {
-      onEdit(newDescription);
+    const newTitle = draft.trim();
+    if (newTitle) {
+      onEdit(newTitle);
     }
     setIsEditing(false);
   }
 
   function cancelEdit() {
-    setDraft(description);
+    setDraft(title);
     setIsEditing(false);
   }
 
@@ -47,7 +47,7 @@ function Task({
           onChange={onToggle}
         />
         <label>
-          <span className="description">{description}</span>
+          <span className="description">{title}</span>
           <span className="created">{format(created, 'PPpp')}</span>
         </label>
         <button

@@ -3,6 +3,7 @@ import TaskList from './components/TaskList';
 import Footer from './components/Footer';
 import { useState } from 'react';
 import TaskArray from './components/TaskArray';
+import NewTaskForm from './components/NewTaskForm';
 
 function App() {
   const [filter, setFilter] = useState('all');
@@ -10,26 +11,8 @@ function App() {
     ...TaskArray.map((task) => ({
       ...task,
       completed: false,
+      created: new Date(),
     })),
-    {
-      id: custom -
-        1,
-      description: 'Completed task',
-      created: new Date(),
-      completed: false,
-    },
-    {
-      id:custom-2,
-      description: 'Editing task',
-      created: new Date(),
-      completed: false,
-    },
-    {
-      id:custom-3,
-      description: 'Active task',
-      created: new Date(),
-      completed: false,
-    },
   ]);
   const filteredTasks = tasks.filter((task) => {
     if (filter === 'active') {
@@ -40,14 +23,19 @@ function App() {
     }
     return true;
   });
-  function addTask(description) {
+  function addTask(title) {
+    const trimmedTitle = title.trim();
+    if (!trimmedTitle) {
+      return;
+    }
+
     setTasks((currentTasks) => [
       ...currentTasks,
       {
         id: crypto.randomUUID(),
-        description,
-        created: new Date(),
+        title: trimmedTitle,
         completed: false,
+        created: new Date(),
       },
     ]);
   }
@@ -76,7 +64,7 @@ function App() {
         if (task.id === id) {
           return {
             ...task,
-            description: newDescription,
+            title: newDescription,
           };
         }
 
@@ -89,17 +77,7 @@ function App() {
     <section className="todoapp">
       <header className="header">
         <h1>todos</h1>
-        <input
-          className="new-todo"
-          placeholder="What needs to be done?"
-          autoFocus
-          onKeyDown={(event) => {
-            if (event.key === 'Enter') {
-              addTask(event.target.value);
-              event.target.value = '';
-            }
-          }}
-        />
+        <NewTaskForm onAddTask={addTask} />
       </header>
 
       <section className="main">
@@ -109,12 +87,7 @@ function App() {
           onDeleteTask={deleteTask}
           onEditTask={editTask}
         />
-       
-
-        
-        <Footer tasks={tasks}
-          filter={filter}
-        setFilter={setFilter}/>
+        <Footer tasks={tasks} filter={filter} setFilter={setFilter} />
       </section>
     </section>
   );
