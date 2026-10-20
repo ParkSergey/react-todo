@@ -38,7 +38,9 @@ function Task({
   }
 
   return (
-    <li className={`${completed ? 'completed ' : ''}${isEditing ? 'editing' : ''}`}>
+    <li
+      className={`${completed ? 'completed ' : ''}${isEditing ? 'editing' : ''}`}
+    >
       <div className="view">
         <input
           className="toggle"

@@ -57,6 +57,9 @@ function App() {
   function deleteTask(id) {
     setTasks((currentTasks) => currentTasks.filter((task) => task.id !== id));
   }
+  const clearCompleted = () => {
+    setTasks((currentTasks) => currentTasks.filter((task) => !task.completed));
+  };
 
   function editTask(id, newDescription) {
     setTasks((currentTasks) =>
@@ -87,10 +90,11 @@ function App() {
           onDeleteTask={deleteTask}
           onEditTask={editTask}
         />
-        <Footer tasks={tasks} filter={filter} setFilter={setFilter} />
+        <Footer tasks={tasks} filter={filter} setFilter={setFilter} onClearCompleted={clearCompleted} />
       </section>
     </section>
   );
+  
 }
 
 export default App;

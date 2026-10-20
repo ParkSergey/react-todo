@@ -1,10 +1,13 @@
 import TasksFilter from './TasksFilter';
-function Footer({ tasks , setFilter,filter}) {
+function Footer({ tasks, setFilter, filter, onClearCompleted }) {
+  const activeTasks = tasks.filter((task) => !task.completed);
   return (
     <footer className="footer">
-      <span className="todo-count">1 items left</span>
-      <TasksFilter filter={filter} setFilter={setFilter}/>
-      <button className="clear-completed">Clear completed</button>
+      <span className="todo-count">{activeTasks.length} items left</span>
+      <TasksFilter filter={filter} setFilter={setFilter} />
+      <button onClick={onClearCompleted} className="clear-completed">
+        Clear completed
+      </button>
     </footer>
   );
 }
