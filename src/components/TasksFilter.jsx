@@ -34,4 +34,8 @@ TasksFilter.defaultProps = {
   filter: 'all',
   setFilter: () => {},
 };
+TasksFilter.propTypes = {
+  filter: PropTypes.string,
+  setFilter: PropTypes.func,
+};
 export default TasksFilter;

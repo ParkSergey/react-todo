@@ -19,8 +19,14 @@ function TaskList({ tasks, onToggleTask, onDeleteTask, onEditTask }) {
 }
 TaskList.defaultProps = {
   tasks: [],
-  onToggleTask: () => { },
-  onDeleteTask: () => { },
-  onEditTask: () => { },
+  onToggleTask: () => {},
+  onDeleteTask: () => {},
+  onEditTask: () => {},
+};
+TaskList.propTypes = {
+  tasks: PropTypes.array,
+  onToggleTask: PropTypes.func,
+  onDeleteTask: PropTypes.func,
+  onEditTask: PropTypes.func,
 };
 export default TaskList;
