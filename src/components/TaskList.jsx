@@ -1,4 +1,5 @@
 import Task from './Task';
+import PropTypes from 'prop-types';
 function TaskList({ tasks, onToggleTask, onDeleteTask, onEditTask }) {
   return (
     <ul className="todo-list">
@@ -16,4 +17,10 @@ function TaskList({ tasks, onToggleTask, onDeleteTask, onEditTask }) {
     </ul>
   );
 }
+TaskList.defaultProps = {
+  tasks: [],
+  onToggleTask: () => { },
+  onDeleteTask: () => { },
+  onEditTask: () => { },
+};
 export default TaskList;

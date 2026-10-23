@@ -1,5 +1,6 @@
-import { format } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 import { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 
 function Task({
   title = 'Task',
@@ -50,7 +51,9 @@ function Task({
         />
         <label>
           <span className="description">{title}</span>
-          <span className="created">{format(created, 'PPpp')}</span>
+          <span className="created">
+            {formatDistanceToNow(created, { addSuffix: true })}
+          </span>
         </label>
         <button
           className="icon icon-edit"
@@ -81,6 +84,19 @@ function Task({
       />
     </li>
   );
+}
+Task.defaultProps = {
+  title: 'Task',
+  created: new Date(),
+  completed: false,
+};
+Task.propTypes = {
+  title: PropTypes.string,
+  created: PropTypes.instanceOf(Date),
+  completed: PropTypes.bool,
+  onToggle: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
 }
 
 export default Task;

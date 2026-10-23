@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 function NewTaskForm({ onAddTask }) {
   return (
     <input
@@ -13,5 +14,10 @@ function NewTaskForm({ onAddTask }) {
     />
   );
 }
-
+NewTaskForm.defaultProps = {
+  onAddTask: () => {},
+};
+NewTaskForm.propTypes = {
+  onAddTask: PropTypes.func,
+};
 export default NewTaskForm;
